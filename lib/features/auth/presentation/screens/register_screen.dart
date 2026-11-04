@@ -281,7 +281,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildRelationDropdown() {
     return DropdownButtonFormField<String>(
-      value: _selectedRelation.isEmpty ? null : _selectedRelation,
+      initialValue: _selectedRelation.isEmpty ? null : _selectedRelation,
       hint: const Text(
         'Hubungan (mis. Ayah, Ibu, Saudara)',
         style: TextStyle(

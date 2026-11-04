@@ -16,18 +16,13 @@ class OnboardingScreen extends StatelessWidget {
             // Logo + Title
             Column(
               children: [
-                // Pin icon
-                Container(
-                  width: 60,
-                  height: 60,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFEAEDFF),
-                    shape: BoxShape.circle,
-                  ),
-                  child: const Icon(
-                    Icons.location_on,
-                    color: AppColors.redPrimary,
-                    size: 34,
+                // Logo SIGAP
+                ClipOval(
+                  child: Image.asset(
+                    'assets/images/logo_sigap.jpeg',
+                    width: 68,
+                    height: 68,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -242,7 +237,7 @@ class OnboardingScreen extends StatelessWidget {
                       border: Border.all(color: const Color(0xFFBBC4FF), width: 2),
                       boxShadow: [
                         BoxShadow(
-                          color: const Color(0xFF0051D5).withOpacity(0.15),
+                          color: const Color(0xFF0051D5).withValues(alpha: 0.15),
                           blurRadius: 20,
                           offset: const Offset(0, 6),
                         ),

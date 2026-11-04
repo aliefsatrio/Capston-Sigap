@@ -82,7 +82,7 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                             top: 10, right: 10,
                             child: Container(
                               width: 32, height: 32,
-                              decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), shape: BoxShape.circle),
+                              decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.5), shape: BoxShape.circle),
                               child: const Icon(Icons.close, color: Colors.white, size: 18),
                             ),
                           ),
@@ -115,11 +115,11 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                     const SizedBox(height: 4),
 
                     // Counter - fixture shows "72/300" per Figma spec
-                    Align(
+                    const Align(
                       alignment: Alignment.centerRight,
                       child: Text(
                         '72/300', // Fixture value per spec; actual: '$charCount/300'
-                        style: const TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, color: AppColors.textMuted),
+                        style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, color: AppColors.textMuted),
                       ),
                     ),
 
@@ -204,7 +204,9 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
       bottomNavigationBar: SigapBottomNav(
         currentIndex: 2,
         onTap: (i) {
-          if (i == 0) context.go('/home');
+          if (i == 0) {
+            context.go('/home');
+          } else if (i == 1) context.push('/first-aid');
           else if (i == 3) context.push('/community');
           else if (i == 4) context.push('/history');
         },

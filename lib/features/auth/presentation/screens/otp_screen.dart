@@ -17,11 +17,12 @@ class _OtpScreenState extends State<OtpScreen> {
 
   int _secondsRemaining = 44;
   Timer? _timer;
+  // false = Email (default), true = WhatsApp
+  bool _isWhatsApp = false;
 
   @override
   void initState() {
     super.initState();
-    // Pre-fill fixture state: 4, 8, 2
     _controllers[0].text = '4';
     _controllers[1].text = '8';
     _controllers[2].text = '2';
@@ -41,8 +42,12 @@ class _OtpScreenState extends State<OtpScreen> {
   @override
   void dispose() {
     _timer?.cancel();
-    for (final c in _controllers) c.dispose();
-    for (final f in _focusNodes) f.dispose();
+    for (final c in _controllers) {
+      c.dispose();
+    }
+    for (final f in _focusNodes) {
+      f.dispose();
+    }
     super.dispose();
   }
 
@@ -65,8 +70,9 @@ class _OtpScreenState extends State<OtpScreen> {
               children: [
                 const SizedBox(height: 16),
 
-                // Top row: back + step indicator
+                // Top row: back + step indicator + shield
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
                       onTap: () => context.pop(),
@@ -81,32 +87,17 @@ class _OtpScreenState extends State<OtpScreen> {
                         child: const Icon(Icons.arrow_back, size: 18, color: AppColors.textPrimary),
                       ),
                     ),
-                    const Spacer(),
-                    // Step indicator
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        const Text(
-                          'LANGKAH 2 DARI 3',
-                          style: TextStyle(
-                            fontFamily: 'PlusJakartaSans',
-                            fontSize: 10,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.textMuted,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            _buildStepBar(true),
-                            const SizedBox(width: 4),
-                            _buildStepBar(true),
-                            const SizedBox(width: 4),
-                            _buildStepBar(false),
-                          ],
-                        ),
-                      ],
+                    const Text(
+                      'LANGKAH 2 DARI 3',
+                      style: TextStyle(
+                        fontFamily: 'PlusJakartaSans',
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.textMuted,
+                        letterSpacing: 0.5,
+                      ),
                     ),
+                    const Icon(Icons.shield, color: AppColors.redPrimary, size: 22),
                   ],
                 ),
 
@@ -117,7 +108,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: Container(
                     width: 80,
                     height: 80,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.blueSurface2,
                       shape: BoxShape.circle,
                     ),
@@ -145,11 +136,11 @@ class _OtpScreenState extends State<OtpScreen> {
 
                 const SizedBox(height: 20),
 
-                // Title
-                const Center(
+                // Title — changes based on mode
+                Center(
                   child: Text(
-                    'Verifikasi Nomor Ponsel',
-                    style: TextStyle(
+                    _isWhatsApp ? 'Verifikasi OTP Via Whatsapp' : 'Verifikasi OTP Via Email',
+                    style: const TextStyle(
                       fontFamily: 'PlusJakartaSans',
                       fontSize: 22,
                       fontWeight: FontWeight.w700,
@@ -159,12 +150,14 @@ class _OtpScreenState extends State<OtpScreen> {
                 ),
                 const SizedBox(height: 10),
 
-                // Description
-                const Center(
+                // Description — changes based on mode
+                Center(
                   child: Text(
-                    'Masukkan 6 digit kode OTP yang telah dikirimkan ke nomor +62 812-3456-7890 melalui WhatsApp atau SMS.',
+                    _isWhatsApp
+                        ? 'Masukkan 6 digit kode OTP yang telah dikirimkan ke nomer 08********'
+                        : 'Masukkan 6 digit kode OTP yang telah dikirimkan ke email s****gmail.com',
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'PlusJakartaSans',
                       fontSize: 13,
                       color: AppColors.textSecondaryLight,
@@ -175,18 +168,30 @@ class _OtpScreenState extends State<OtpScreen> {
 
                 const SizedBox(height: 14),
 
-                // Ubah Nomor Ponsel link
+                // Edit shortcut link (Capsule button)
                 Center(
-                  child: GestureDetector(
-                    onTap: () {},
-                    child: const Text(
-                      '✓ Ubah Nomor Ponsel',
-                      style: TextStyle(
-                        fontFamily: 'PlusJakartaSans',
-                        fontSize: 13,
-                        color: AppColors.bluePrimary,
-                        fontWeight: FontWeight.w500,
-                      ),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFEFF6FF),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: const Color(0xFFBFDBFE)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.edit, size: 13, color: AppColors.bluePrimary),
+                        const SizedBox(width: 6),
+                        Text(
+                          _isWhatsApp ? 'Nomer' : 'Email',
+                          style: const TextStyle(
+                            fontFamily: 'PlusJakartaSans',
+                            fontSize: 12,
+                            color: AppColors.bluePrimary,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -201,10 +206,10 @@ class _OtpScreenState extends State<OtpScreen> {
 
                 const SizedBox(height: 20),
 
-                // Countdown + resend
+                // Countdown
                 Center(
                   child: Text(
-                    'Kirim ulang kode dalam $_timerText',
+                    '⏰ Kirim ulang kode dalam $_timerText',
                     style: const TextStyle(
                       fontFamily: 'PlusJakartaSans',
                       fontSize: 13,
@@ -215,64 +220,58 @@ class _OtpScreenState extends State<OtpScreen> {
 
                 const SizedBox(height: 14),
 
-                // WhatsApp + SMS buttons
+                // Email / WhatsApp toggle
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 36,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xFFE2E8F0)),
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
+                    GestureDetector(
+                      onTap: () => setState(() => _isWhatsApp = false),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.email_outlined,
+                            size: 15,
+                            color: !_isWhatsApp ? AppColors.redPrimary : AppColors.textSecondaryLight,
                           ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.chat_bubble_outline, size: 16, color: Color(0xFF25D366)),
-                              SizedBox(width: 6),
-                              Text(
-                                'Kirim via WhatsApp',
-                                style: TextStyle(
-                                  fontFamily: 'PlusJakartaSans',
-                                  fontSize: 12,
-                                  color: AppColors.textSecondaryLight,
-                                ),
-                              ),
-                            ],
+                          const SizedBox(width: 4),
+                          Text(
+                            'Kirim via  email',
+                            style: TextStyle(
+                              fontFamily: 'PlusJakartaSans',
+                              fontSize: 13,
+                              fontWeight: !_isWhatsApp ? FontWeight.w700 : FontWeight.w400,
+                              color: !_isWhatsApp ? AppColors.redPrimary : AppColors.textSecondaryLight,
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          height: 36,
-                          decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xFFE2E8F0)),
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.white,
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text('•', style: TextStyle(color: AppColors.textMuted)),
+                    ),
+                    GestureDetector(
+                      onTap: () => setState(() => _isWhatsApp = true),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.chat_bubble_outline,
+                            size: 15,
+                            color: _isWhatsApp ? const Color(0xFF25D366) : AppColors.textSecondaryLight,
                           ),
-                          child: const Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(Icons.sms_outlined, size: 16, color: AppColors.blueMedium),
-                              SizedBox(width: 6),
-                              Text(
-                                'Kirim via SMS',
-                                style: TextStyle(
-                                  fontFamily: 'PlusJakartaSans',
-                                  fontSize: 12,
-                                  color: AppColors.textSecondaryLight,
-                                ),
-                              ),
-                            ],
+                          const SizedBox(width: 4),
+                          Text(
+                            'Kirim via WhatsApp',
+                            style: TextStyle(
+                              fontFamily: 'PlusJakartaSans',
+                              fontSize: 13,
+                              fontWeight: _isWhatsApp ? FontWeight.w700 : FontWeight.w400,
+                              color: _isWhatsApp ? const Color(0xFF25D366) : AppColors.textSecondaryLight,
+                            ),
                           ),
-                        ),
+                        ],
                       ),
                     ),
                   ],
@@ -314,14 +313,14 @@ class _OtpScreenState extends State<OtpScreen> {
                     color: AppColors.blueSurface1,
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Column(
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         children: [
-                          const Icon(Icons.shield_outlined, size: 16, color: AppColors.bluePrimary),
-                          const SizedBox(width: 8),
-                          const Text(
+                          Icon(Icons.shield_outlined, size: 16, color: AppColors.bluePrimary),
+                          SizedBox(width: 8),
+                          Text(
                             'Jaminan Privasi & Validitas',
                             style: TextStyle(
                               fontFamily: 'PlusJakartaSans',
@@ -332,8 +331,8 @@ class _OtpScreenState extends State<OtpScreen> {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
+                      SizedBox(height: 8),
+                      Text(
                         'SIGAP menjamin kerahasiaan nomor Anda. Verifikasi nomor seluler diperlukan untuk mencegah laporan palsu (hoax) dan mempercepat respons instansi darurat saat warga membutuhkan bantuan evakuasi.',
                         style: TextStyle(
                           fontFamily: 'PlusJakartaSans',
@@ -349,9 +348,9 @@ class _OtpScreenState extends State<OtpScreen> {
                 const SizedBox(height: 20),
 
                 // Footer
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       '✦ Integrasi Call Center 112',
                       style: TextStyle(
@@ -362,7 +361,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                     SizedBox(width: 16),
                     Text(
-                      '✦ Enkripsi End-to-End',
+                      '🔒 Enkripsi End-to-End',
                       style: TextStyle(
                         fontFamily: 'PlusJakartaSans',
                         fontSize: 11,

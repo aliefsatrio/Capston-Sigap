@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
-import '../../../../shared/widgets/sigap_bottom_nav.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,176 +8,227 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.bgLavender,
+      backgroundColor: const Color(0xFFF8FAFC),
       body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 12),
+
+              // Back button (chevron left)
+              GestureDetector(
+                onTap: () => context.pop(),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 8),
+                  child: Icon(Icons.arrow_back_ios_new, size: 20, color: Color(0xFF1E293B)),
+                ),
+              ),
+
+              const SizedBox(height: 16),
+
+              // User Info Header (Avatar di kiri, nama & nomor di kanan)
+              Row(
+                children: [
+                  Container(
+                    width: 64,
+                    height: 64,
+                    decoration: const BoxDecoration(
+                      color: Color(0xFFE2E8F0),
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.person,
+                      size: 38,
+                      color: Color(0xFF1E293B),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Syifa Khaerunisa Nabila',
+                          style: TextStyle(
+                            fontFamily: 'LiberationSans',
+                            fontSize: 17,
+                            fontWeight: FontWeight.w700,
+                            color: Color(0xFF1E293B),
+                          ),
+                        ),
+                        SizedBox(height: 4),
+                        Text(
+                          '+62 8xxxxxxxxxx',
+                          style: TextStyle(
+                            fontFamily: 'LiberationSans',
+                            fontSize: 13,
+                            color: Color(0xFF94A3B8),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 28),
+
+              // Menu Card
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.03),
+                      blurRadius: 10,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
+                ),
                 child: Column(
                   children: [
-                    const SizedBox(height: 32),
-
-                    // Avatar
-                    const CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Color(0xFFFFDDBB),
-                      child: Text(
-                        'S',
-                        style: TextStyle(fontFamily: 'LiberationSans', fontSize: 32, fontWeight: FontWeight.w700, color: Color(0xFF7C4A00)),
-                      ),
+                    _buildMenuItem(
+                      icon: Icons.edit_outlined,
+                      label: 'Edit Profil',
+                      onTap: () {},
                     ),
-
-                    const SizedBox(height: 14),
-
-                    const Text(
-                      'Syifa Khaerunisa Nabila',
-                      style: TextStyle(fontFamily: 'LiberationSans', fontSize: 17, fontWeight: FontWeight.w700, color: AppColors.textPrimary),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.group_outlined,
+                      label: 'Kontak Darurat',
+                      onTap: () {},
                     ),
-                    const SizedBox(height: 4),
-                    const Text(
-                      '+62 8xxxxxxxxxx',
-                      style: TextStyle(fontFamily: 'LiberationSans', fontSize: 12, color: AppColors.textMuted),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.settings_outlined,
+                      label: 'Pengaturan',
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) => _buildPlaceholderSheet('Pengaturan', 'Halaman Pengaturan belum memiliki desain referensi.'),
+                        );
+                      },
                     ),
-
-                    const SizedBox(height: 28),
-
-                    // Menu items
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(color: const Color(0xFFE2E8F0)),
-                        ),
-                        child: Column(
-                          children: [
-                            _buildMenuItem(icon: Icons.edit_outlined, label: 'Edit Profil', onTap: () {}),
-                            _buildDivider(),
-                            _buildMenuItem(icon: Icons.emergency_outlined, label: 'Kontak Darurat', onTap: () {}),
-                            _buildDivider(),
-                            _buildMenuItem(icon: Icons.settings_outlined, label: 'Pengaturan', onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (_) => _buildPlaceholderSheet('Pengaturan', 'Halaman Pengaturan belum memiliki desain referensi.'),
-                              );
-                            }),
-                            _buildDivider(),
-                            _buildMenuItem(icon: Icons.help_outline, label: 'Bantuan', onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (_) => _buildPlaceholderSheet('Bantuan', 'Halaman Bantuan belum memiliki desain referensi.'),
-                              );
-                            }),
-                            _buildDivider(),
-                            _buildMenuItem(
-                              icon: Icons.dashboard_customize_outlined,
-                              label: 'Galeri Semua Layar (16 Layar)',
-                              onTap: () => context.push('/gallery'),
-                            ),
-                            _buildDivider(),
-                            _buildMenuItem(icon: Icons.info_outline, label: 'Tentang SIGAP', onTap: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: (_) => _buildPlaceholderSheet('Tentang SIGAP', 'SIGAP v1.0.0\nSistem Informasi Pelaporan Kejadian Darurat'),
-                              );
-                            }),
-                          ],
-                        ),
-                      ),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.error_outline,
+                      label: 'Bantuan',
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) => _buildPlaceholderSheet('Bantuan', 'Halaman Bantuan belum memiliki desain referensi.'),
+                        );
+                      },
                     ),
-
-                    const SizedBox(height: 32),
-
-                    // Keluar button
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: SizedBox(
-                        width: double.infinity,
-                        height: 52,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (ctx) => AlertDialog(
-                                title: const Text('Keluar', style: TextStyle(fontFamily: 'LiberationSans', fontWeight: FontWeight.w700)),
-                                content: const Text('Apakah Anda yakin ingin keluar?', style: TextStyle(fontFamily: 'LiberationSans')),
-                                actions: [
-                                  TextButton(
-                                    onPressed: () => Navigator.of(ctx).pop(),
-                                    child: const Text('Batal', style: TextStyle(fontFamily: 'LiberationSans')),
-                                  ),
-                                  TextButton(
-                                    onPressed: () {
-                                      Navigator.of(ctx).pop();
-                                      context.go('/login');
-                                    },
-                                    child: const Text('Keluar', style: TextStyle(fontFamily: 'LiberationSans', color: AppColors.redPrimary, fontWeight: FontWeight.w700)),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.redPrimary,
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                            elevation: 0,
-                          ),
-                          child: const Text('Keluar',
-                              style: TextStyle(fontFamily: 'LiberationSans', fontSize: 15, fontWeight: FontWeight.w700)),
-                        ),
-                      ),
+                    _buildDivider(),
+                    _buildMenuItem(
+                      icon: Icons.info_outline,
+                      label: 'Tentang SIGAP',
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          builder: (_) => _buildPlaceholderSheet('Tentang SIGAP', 'SIGAP v1.0.0\nSistem Informasi Pelaporan Kejadian Darurat'),
+                        );
+                      },
                     ),
-
-                    const SizedBox(height: 90),
                   ],
                 ),
               ),
-            ),
 
-            SigapBottomNav(
-              currentIndex: -1, // Profile is not in home nav
-              onTap: (i) {
-                if (i == 0) context.go('/home');
-                else if (i == 2) context.push('/camera');
-                else if (i == 3) context.push('/community');
-                else if (i == 4) context.push('/history');
-              },
-              variant: SigapNavVariant.services,
-            ),
-          ],
+              const Spacer(),
+
+              // Keluar Button
+              SizedBox(
+                width: double.infinity,
+                height: 52,
+                child: ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => AlertDialog(
+                        title: const Text('Keluar', style: TextStyle(fontFamily: 'LiberationSans', fontWeight: FontWeight.w700)),
+                        content: const Text('Apakah Anda yakin ingin keluar?', style: TextStyle(fontFamily: 'LiberationSans')),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.of(ctx).pop(),
+                            child: const Text('Batal', style: TextStyle(fontFamily: 'LiberationSans')),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(ctx).pop();
+                              context.go('/login');
+                            },
+                            child: const Text('Keluar', style: TextStyle(fontFamily: 'LiberationSans', color: AppColors.redPrimary, fontWeight: FontWeight.w700)),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE53935),
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                    elevation: 0,
+                  ),
+                  child: const Text(
+                    'Keluar',
+                    style: TextStyle(
+                      fontFamily: 'LiberationSans',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 28),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  Widget _buildMenuItem({required IconData icon, required String label, required VoidCallback onTap}) {
-    return GestureDetector(
+  Widget _buildMenuItem({
+    required IconData icon,
+    required String label,
+    required VoidCallback onTap,
+  }) {
+    return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(16),
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
         child: Row(
           children: [
-            Container(
-              width: 36, height: 36,
-              decoration: BoxDecoration(color: AppColors.bgGrey, borderRadius: BorderRadius.circular(10)),
-              child: Icon(icon, size: 18, color: AppColors.textSecondarySlate),
-            ),
+            Icon(icon, size: 20, color: const Color(0xFF475569)),
             const SizedBox(width: 14),
             Expanded(
-              child: Text(label, style: const TextStyle(fontFamily: 'LiberationSans', fontSize: 14, color: AppColors.textPrimary)),
+              child: Text(
+                label,
+                style: const TextStyle(
+                  fontFamily: 'LiberationSans',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Color(0xFF1E293B),
+                ),
+              ),
             ),
-            const Icon(Icons.chevron_right, size: 20, color: AppColors.textMuted),
+            const Icon(Icons.chevron_right, size: 18, color: Color(0xFF94A3B8)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDivider() => Container(height: 1, margin: const EdgeInsets.symmetric(horizontal: 16), color: const Color(0xFFF1F5F9));
+  Widget _buildDivider() => Container(
+        height: 1,
+        margin: const EdgeInsets.symmetric(horizontal: 16),
+        color: const Color(0xFFF1F5F9),
+      );
 
   Widget _buildPlaceholderSheet(String title, String desc) {
     return Padding(

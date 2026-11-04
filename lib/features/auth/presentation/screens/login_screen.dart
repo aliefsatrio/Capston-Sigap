@@ -27,11 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Title area
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(24, 32, 24, 0),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(24, 32, 24, 0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           Text(
                             'Masuk ke SIGAP',
                             style: TextStyle(
@@ -284,12 +284,12 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
         // Text overlay
-        Positioned(
+        const Positioned(
           bottom: 24,
           left: 0,
           right: 0,
           child: Column(
-            children: const [
+            children: [
               Text(
                 'SIGAP selalu ada',
                 textAlign: TextAlign.center,
@@ -321,7 +321,7 @@ class _LoginScreenState extends State<LoginScreen> {
 class _SkylinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = const Color(0xFFBBC4FF).withOpacity(0.7);
+    final paint = Paint()..color = const Color(0xFFBBC4FF).withValues(alpha: 0.7);
 
     final buildings = [
       Rect.fromLTWH(0, size.height * 0.4, 40, size.height * 0.6),

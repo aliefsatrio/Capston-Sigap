@@ -19,9 +19,9 @@ class FirstAidScreen extends StatelessWidget {
               padding: const EdgeInsets.fromLTRB(20, 14, 20, 10),
               child: Row(
                 children: [
-                  Column(
+                  const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('SIGAP', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.bluePrimary)),
                       Text('Beranda', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 12, color: AppColors.textMuted)),
                     ],
@@ -124,15 +124,15 @@ class FirstAidScreen extends StatelessWidget {
                     const SizedBox(height: 14),
 
                     // Topics
-                    Row(
+                    const Row(
                       children: [
-                        const Expanded(
+                        Expanded(
                           child: Text('TOPIK DARURAT MEDIS CEPAT (P3K)',
                               style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.textMuted)),
                         ),
-                        const Text('Geser', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, color: AppColors.bluePrimary)),
-                        const SizedBox(width: 4),
-                        const Icon(Icons.chevron_right, size: 14, color: AppColors.bluePrimary),
+                        Text('Geser', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, color: AppColors.bluePrimary)),
+                        SizedBox(width: 4),
+                        Icon(Icons.chevron_right, size: 14, color: AppColors.bluePrimary),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -183,8 +183,9 @@ class FirstAidScreen extends StatelessWidget {
             SigapBottomNav(
               currentIndex: 1,
               onTap: (i) {
-                if (i == 0) context.go('/home');
-                else if (i == 2) context.push('/camera');
+                if (i == 0) {
+                  context.go('/home');
+                } else if (i == 2) context.push('/camera');
                 else if (i == 3) context.push('/community');
                 else if (i == 4) context.push('/history');
               },
@@ -231,7 +232,7 @@ class FirstAidScreen extends StatelessWidget {
         children: [
           Container(
             width: 32, height: 32,
-            decoration: BoxDecoration(color: AppColors.blueSurface1, shape: BoxShape.circle),
+            decoration: const BoxDecoration(color: AppColors.blueSurface1, shape: BoxShape.circle),
             child: const Icon(Icons.smart_toy_outlined, color: AppColors.bluePrimary, size: 16),
           ),
           const SizedBox(width: 10),
@@ -271,9 +272,9 @@ class FirstAidScreen extends StatelessWidget {
           Container(
             width: 280,
             padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.bluePrimary,
-              borderRadius: const BorderRadius.only(
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(14),
                 bottomLeft: Radius.circular(14),
                 bottomRight: Radius.circular(14),
@@ -286,7 +287,7 @@ class FirstAidScreen extends StatelessWidget {
                   children: [
                     Container(
                       width: 32, height: 32,
-                      decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), shape: BoxShape.circle),
+                      decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), shape: BoxShape.circle),
                       child: const Icon(Icons.play_arrow, color: Colors.white, size: 18),
                     ),
                     const SizedBox(width: 8),
@@ -300,7 +301,7 @@ class FirstAidScreen extends StatelessWidget {
                             child: Container(
                               margin: const EdgeInsets.symmetric(horizontal: 1),
                               height: h,
-                              decoration: BoxDecoration(color: Colors.white.withOpacity(0.7), borderRadius: BorderRadius.circular(2)),
+                              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.7), borderRadius: BorderRadius.circular(2)),
                             ),
                           );
                         }),
@@ -313,7 +314,7 @@ class FirstAidScreen extends StatelessWidget {
                 const SizedBox(height: 10),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(6)),
+                  decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.15), borderRadius: BorderRadius.circular(6)),
                   child: const Text('TRANSKRIP SUARA OTOMATIS',
                       style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 9, fontWeight: FontWeight.w700, color: Colors.white70)),
                 ),
@@ -323,8 +324,8 @@ class FirstAidScreen extends StatelessWidget {
                   style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 12, color: Colors.white, height: 1.5),
                 ),
                 const SizedBox(height: 8),
-                Row(
-                  children: const [
+                const Row(
+                  children: [
                     Icon(Icons.location_on, size: 12, color: Colors.white70),
                     SizedBox(width: 4),
                     Expanded(
@@ -404,10 +405,10 @@ class FirstAidScreen extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(14, 0, 14, 14),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(14, 0, 14, 14),
             child: Row(
-              children: const [
+              children: [
                 Icon(Icons.access_time, size: 12, color: AppColors.textMuted),
                 SizedBox(width: 4),
                 Text('Baru saja • Berdasarkan protokol medis PMI & Kemkes',

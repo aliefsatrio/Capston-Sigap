@@ -30,7 +30,7 @@ class ReportSuccessScreen extends StatelessWidget {
                         Container(
                           width: 100,
                           height: 100,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: AppColors.redSurface1,
                             shape: BoxShape.circle,
                           ),
@@ -118,7 +118,9 @@ class ReportSuccessScreen extends StatelessWidget {
       bottomNavigationBar: SigapBottomNav(
         currentIndex: 2,
         onTap: (i) {
-          if (i == 0) context.go('/home');
+          if (i == 0) {
+            context.go('/home');
+          } else if (i == 1) context.push('/first-aid');
           else if (i == 3) context.push('/community');
           else if (i == 4) context.push('/history');
         },
@@ -151,7 +153,7 @@ class _ConfettiPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     final colors = [AppColors.redPrimary, AppColors.redSurface1, const Color(0xFFFFB3B3), const Color(0xFFFF8A80)];
     final center = Offset(size.width / 2, size.height / 2);
-    final r = 70.0;
+    const r = 70.0;
 
     for (int i = 0; i < 12; i++) {
       final angle = (i * 30.0) * 3.14159 / 180;
@@ -162,7 +164,7 @@ class _ConfettiPainter extends CustomPainter {
       canvas.drawCircle(
         Offset(ox, oy),
         3 + (i % 3).toDouble(),
-        Paint()..color = colors[i % colors.length].withOpacity(0.7),
+        Paint()..color = colors[i % colors.length].withValues(alpha: 0.7),
       );
     }
   }
@@ -174,7 +176,7 @@ class _ConfettiPainter extends CustomPainter {
 class _SuccessSkylinePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()..color = AppColors.redSurface1.withOpacity(0.6);
+    final paint = Paint()..color = AppColors.redSurface1.withValues(alpha: 0.6);
 
     final buildings = [
       Rect.fromLTWH(0, size.height * 0.4, 30, size.height * 0.6),

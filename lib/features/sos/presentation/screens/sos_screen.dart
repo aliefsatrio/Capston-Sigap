@@ -22,7 +22,7 @@ class SosScreen extends StatelessWidget {
                     child: Container(
                       width: 36, height: 36,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Icon(Icons.arrow_back, color: Colors.white, size: 18),
@@ -95,9 +95,9 @@ class SosScreen extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Column(
+                    const Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text(
                           'Kontak Darurat',
                           style: TextStyle(fontFamily: 'LiberationSans', fontSize: 11, color: AppColors.textMuted),
@@ -114,13 +114,21 @@ class SosScreen extends StatelessWidget {
                       ],
                     ),
                     const Spacer(),
-                    Container(
-                      width: 36, height: 36,
-                      decoration: BoxDecoration(
-                        color: AppColors.bgGrey,
-                        borderRadius: BorderRadius.circular(10),
+                    GestureDetector(
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Menghubungi Kontak Darurat: Ibu (+62 812-3456-7890)...'),
+                            backgroundColor: Color(0xFF1D4ED8),
+                            duration: Duration(seconds: 2),
+                          ),
+                        );
+                      },
+                      child: const Icon(
+                        Icons.phone,
+                        color: Color(0xFF1D4ED8),
+                        size: 26,
                       ),
-                      child: const Icon(Icons.edit_outlined, color: AppColors.textSecondarySlate, size: 18),
                     ),
                   ],
                 ),
@@ -132,7 +140,7 @@ class SosScreen extends StatelessWidget {
               width: 128, height: 4,
               margin: const EdgeInsets.only(bottom: 8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.4),
+                color: Colors.white.withValues(alpha: 0.4),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
@@ -170,7 +178,7 @@ class SosScreen extends StatelessWidget {
             width: 180, height: 180,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.1),
+              color: Colors.white.withValues(alpha: 0.1),
             ),
           ),
           // Outer ring 2
@@ -178,15 +186,15 @@ class SosScreen extends StatelessWidget {
             width: 150, height: 150,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Colors.white.withOpacity(0.15),
+              color: Colors.white.withValues(alpha: 0.15),
             ),
           ),
           // Outer ring 1
           Container(
             width: 120, height: 120,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: const Color(0xFFCC1C1C),
+              color: Color(0xFFCC1C1C),
             ),
           ),
           // Inner button

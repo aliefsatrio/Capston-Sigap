@@ -28,7 +28,7 @@ class SigapBottomNav extends StatelessWidget {
         color: Colors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 12,
             offset: const Offset(0, -2),
           ),
@@ -114,6 +114,7 @@ class SigapBottomNav extends StatelessWidget {
     return Expanded(
       child: GestureDetector(
         onTap: () => onTap(2),
+        behavior: HitTestBehavior.opaque,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -126,7 +127,7 @@ class SigapBottomNav extends StatelessWidget {
                 border: Border.all(color: Colors.white, width: 3),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.redPrimary.withOpacity(0.35),
+                    color: AppColors.redPrimary.withValues(alpha: 0.35),
                     blurRadius: 10,
                     offset: const Offset(0, 2),
                   ),

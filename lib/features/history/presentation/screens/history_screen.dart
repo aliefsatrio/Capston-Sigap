@@ -69,7 +69,9 @@ class _HistoryScreenState extends State<HistoryScreen> with SingleTickerProvider
             SigapBottomNav(
               currentIndex: 4,
               onTap: (i) {
-                if (i == 0) context.go('/home');
+                if (i == 0) {
+                  context.go('/home');
+                } else if (i == 1) context.push('/first-aid');
                 else if (i == 2) context.push('/camera');
                 else if (i == 3) context.push('/community');
               },
@@ -179,9 +181,9 @@ class _HistoryScreenState extends State<HistoryScreen> with SingleTickerProvider
         Container(
           width: 36,
           height: 110 * heightFraction,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: AppColors.bluePrimary,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(6)),
+            borderRadius: BorderRadius.vertical(top: Radius.circular(6)),
           ),
         ),
         const SizedBox(height: 6),

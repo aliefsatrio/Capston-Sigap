@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _navIndex = 0;
+  final int _navIndex = 0;
 
   void _onNavTap(int i) {
     switch (i) {
@@ -67,41 +67,14 @@ class _HomeScreenState extends State<HomeScreen> {
       padding: const EdgeInsets.fromLTRB(20, 14, 20, 10),
       child: Row(
         children: [
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text('SIGAP', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 18, fontWeight: FontWeight.w800, color: AppColors.bluePrimary)),
               Text('Beranda', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 12, color: AppColors.textMuted)),
             ],
           ),
           const Spacer(),
-          GestureDetector(
-            onTap: () => context.push('/gallery'),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-              margin: const EdgeInsets.only(right: 8),
-              decoration: BoxDecoration(
-                color: AppColors.blueSurface1,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFFBBC4FF)),
-              ),
-              child: const Row(
-                children: [
-                  Icon(Icons.dashboard_customize, size: 14, color: AppColors.bluePrimary),
-                  SizedBox(width: 4),
-                  Text(
-                    '16 Layar',
-                    style: TextStyle(
-                      fontFamily: 'PlusJakartaSans',
-                      fontSize: 11,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.bluePrimary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
           Stack(
             children: [
               Container(
@@ -118,10 +91,10 @@ class _HomeScreenState extends State<HomeScreen> {
           const SizedBox(width: 10),
           GestureDetector(
             onTap: () => context.push('/profile'),
-            child: CircleAvatar(
+            child: const CircleAvatar(
               radius: 18,
-              backgroundColor: const Color(0xFFFFDDBB),
-              child: const Text('S', style: TextStyle(fontFamily: 'PlusJakartaSans', fontWeight: FontWeight.w700, color: Color(0xFF7C4A00))),
+              backgroundColor: Color(0xFFFFDDBB),
+              child: Text('S', style: TextStyle(fontFamily: 'PlusJakartaSans', fontWeight: FontWeight.w700, color: Color(0xFF7C4A00))),
             ),
           ),
         ],
@@ -168,14 +141,14 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Container(
               width: 36, height: 36,
-              decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
+              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(10)),
               child: const Icon(Icons.warning_amber_rounded, color: Colors.white, size: 20),
             ),
             const SizedBox(width: 12),
-            Expanded(
+            const Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text('Dalam keadaan darurat?', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 13, fontWeight: FontWeight.w700, color: Colors.white)),
                   SizedBox(height: 2),
                   Text('Gunakan fitur darurat berikut untuk memanggil bantuan secepatnya.', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, color: Colors.white70, height: 1.4)),
@@ -283,7 +256,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Container(
                 width: 36, height: 36,
-                decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(10)),
+                decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.2), borderRadius: BorderRadius.circular(10)),
                 child: const Icon(Icons.notifications_active, color: Colors.white, size: 20),
               ),
               const SizedBox(width: 12),
@@ -355,7 +328,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 6)],
+                  boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 6)],
                 ),
                 child: const Row(
                   children: [
@@ -408,10 +381,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Text('B', style: TextStyle(fontFamily: 'PlusJakartaSans', fontWeight: FontWeight.w700, color: Color(0xFF7C4A00), fontSize: 12)),
                   ),
                   const SizedBox(width: 10),
-                  Expanded(
+                  const Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
+                      children: [
                         Text('Budi Santoso', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
                         Text('12 menit lalu • 1.2 km dari Anda', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textMuted)),
                       ],
@@ -425,11 +398,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children: [
                   Text(
                     'Tabrakan Motor vs Mobil di Perempatan Pancasila',
                     style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 18, fontWeight: FontWeight.w700, color: AppColors.textPrimary, height: 1.375),
@@ -513,10 +486,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: Text('S', style: TextStyle(fontFamily: 'PlusJakartaSans', fontWeight: FontWeight.w700, color: Color(0xFF059669), fontSize: 12)),
                 ),
                 const SizedBox(width: 10),
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('Siti Nurhaliza', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 12, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
                       Text('45 menit lalu • 2.4 km dari Anda', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 10, fontWeight: FontWeight.w700, color: AppColors.textMuted)),
                     ],
@@ -607,7 +580,7 @@ class _MapPainter extends CustomPainter {
     canvas.drawCircle(Offset(size.width * 0.4, size.height * 0.5), 7, Paint()..color = Colors.white);
 
     // User dot
-    canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.3), 20, Paint()..color = AppColors.bluePrimary.withOpacity(0.15));
+    canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.3), 20, Paint()..color = AppColors.bluePrimary.withValues(alpha: 0.15));
     canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.3), 7, Paint()..color = AppColors.bluePrimary);
     canvas.drawCircle(Offset(size.width * 0.65, size.height * 0.3), 4, Paint()..color = Colors.white);
   }
