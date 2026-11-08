@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'dart:typed_data';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/auth/presentation/screens/register_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
@@ -32,7 +32,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/sos', builder: (ctx, state) => const SosScreen()),
       GoRoute(path: '/emergency-services', builder: (ctx, state) => const EmergencyServicesScreen()),
       GoRoute(path: '/camera', builder: (ctx, state) => const CameraScreen()),
-      GoRoute(path: '/description', builder: (ctx, state) => const DescriptionScreen()),
+      GoRoute(
+  path: '/description',
+  builder: (context, state) {
+    final photoBytes = state.extra as Uint8List?;
+
+    return DescriptionScreen(
+      photoBytes: photoBytes,
+    );
+  },
+),
       GoRoute(path: '/report-success', builder: (ctx, state) => const ReportSuccessScreen()),
       GoRoute(path: '/community', builder: (ctx, state) => const CommunityScreen()),
       GoRoute(path: '/history', builder: (ctx, state) => const HistoryScreen()),

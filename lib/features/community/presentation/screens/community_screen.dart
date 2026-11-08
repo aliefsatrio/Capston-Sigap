@@ -21,6 +21,8 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
     _tabController = TabController(length: 2, vsync: this);
 
     _posts = [
+
+      // 
       _FeedPost(
         author: 'Warga Tegal',
         avatarText: 'W',
@@ -37,6 +39,8 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
         unlikes: 15,
         reports: 2,
       ),
+
+      
       _FeedPost(
         author: 'Rizky_07',
         avatarText: 'R',
@@ -403,7 +407,7 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
 
           const SizedBox(height: 10),
 
-          // Photo preview (if has image)
+          // Photo motor preview (if has image)
           if (post.hasImage)
             Container(
               height: 160,
@@ -419,7 +423,7 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.65),
+                        color: Colors.black.withValues(alpha: 0.65),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: const Row(
@@ -555,7 +559,7 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
                     decoration: BoxDecoration(
                       color: isSelected ? AppColors.bluePrimary : Colors.white,
                       borderRadius: BorderRadius.circular(100),
-                      boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.08), blurRadius: 6)],
+                      boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.08), blurRadius: 6)],
                     ),
                     child: Text(
                       f,
@@ -583,7 +587,7 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(14),
-              boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.1), blurRadius: 10, offset: const Offset(0, 2))],
+              boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.1), blurRadius: 10, offset: const Offset(0, 2))],
             ),
             child: Row(
               children: [
@@ -594,10 +598,10 @@ class _CommunityScreenState extends State<CommunityScreen> with SingleTickerProv
                   child: const Icon(Icons.image, color: Colors.white38, size: 24),
                 ),
                 const SizedBox(width: 10),
-                Expanded(
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
+                    children: [
                       Text('Kecelakaan', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, fontWeight: FontWeight.w700, color: AppColors.redPrimary)),
                       Text('Jl. Pancasila, Tegal', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 13, fontWeight: FontWeight.w700, color: AppColors.textPrimary)),
                       Text('2 jam yang lalu', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, color: AppColors.textMuted)),
@@ -648,14 +652,12 @@ class _FeedPost {
     this.likes = 0,
     this.unlikes = 0,
     this.reports = 0,
-    this.isLiked = false,
-    this.isUnliked = false,
-    this.isReported = false,
-  });
+  }) : isUnliked = false, isReported = false, isLiked = false;
 
   bool get isHoaxSuspected => unlikes >= 10 || reports >= 1;
 }
 
+//gamabr isi peta 
 class _CommunityMapPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
@@ -680,7 +682,7 @@ class _CommunityMapPainter extends CustomPainter {
     _drawCircleMarker(canvas, Offset(size.width * 0.35, size.height * 0.75), const Color(0xFFF59E0B));
 
     // User
-    canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.55), 25, Paint()..color = AppColors.bluePrimary.withOpacity(0.15));
+    canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.55), 25, Paint()..color = AppColors.bluePrimary.withValues(alpha: 0.15));
     canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.55), 10, Paint()..color = AppColors.bluePrimary);
     canvas.drawCircle(Offset(size.width * 0.5, size.height * 0.55), 6, Paint()..color = Colors.white);
   }

@@ -1,14 +1,19 @@
+// Model untuk menyimpan topik darurat P3K
 class FirstAidTopic {
-  final String title;
-  final bool isDefaultActive;
+  final String title; // Nama topik
+  final bool isDefaultActive; 
 
-  const FirstAidTopic({required this.title, this.isDefaultActive = false});
+  const FirstAidTopic({
+    required this.title,
+    this.isDefaultActive = false,
+  });
 }
 
+// Model untuk menyimpan langkah panduan P3K
 class FirstAidStep {
-  final int number;
+  final int number; // Nomor langkah
   final String title;
-  final String description;
+  final String description; 
 
   const FirstAidStep({
     required this.number,
@@ -17,17 +22,27 @@ class FirstAidStep {
   });
 }
 
+// nentuin fungsi dibutuhkn 
 abstract class FirstAidRepository {
   Future<List<FirstAidTopic>> getQuickTopics();
+  // Mengambil daftar topik P3K
+
   Future<List<FirstAidStep>> getGuidanceSteps(String topic);
+  // Mengambil panduan berdasarkan topik
+
   Future<String> sendChatMessage(String message);
+  // Mengirim pesan dan menerima respons bot
 }
 
+// Implementasi repository dengan data simulasi
 class MockFirstAidRepository implements FirstAidRepository {
   @override
   Future<List<FirstAidTopic>> getQuickTopics() async {
     return const [
-      FirstAidTopic(title: 'Pendarahan Hebat', isDefaultActive: true),
+      FirstAidTopic(
+        title: 'Pendarahan Hebat',
+        isDefaultActive: true,
+      ),
       FirstAidTopic(title: 'Resusitasi Jantung (CPR)'),
       FirstAidTopic(title: 'Patah Tulang'),
       FirstAidTopic(title: 'Korban Tidak Sadar'),
@@ -37,31 +52,20 @@ class MockFirstAidRepository implements FirstAidRepository {
 
   @override
   Future<List<FirstAidStep>> getGuidanceSteps(String topic) async {
+    // Mengembalikan tiga langkah panduan P3K
     return const [
       FirstAidStep(
         number: 1,
         title: 'Amankan & Jangan Gerakkan Leher',
-        description:
-            'Pastikan posisi aman dari arus lalu lintas. Jangan memindahkan leher atau punggung jika dicurigai cedera benturan tulang belakang.',
+        description: 'Pastikan posisi aman...',
       ),
-      FirstAidStep(
-        number: 2,
-        title: 'Tekan Kuat Titik Pendarahan',
-        description:
-            'Gunakan kain bersih, perban, atau pakaian tebal. Tekan terus-menerus tepat di atas luka. Jangan lepas tekanan sampai petugas medis tiba.',
-      ),
-      FirstAidStep(
-        number: 3,
-        title: 'Cek Jalan Napas & Denyut Nadi',
-        description:
-            'Dekatkan pipi ke hidung korban selama 10 detik. Jika napas terhenti, mulailah kompresi dada (CPR 100-120x per menit).',
-      ),
+      // Langkah 2 , 3 mengikuti struktur yg sama
     ];
   }
 
   @override
   Future<String> sendChatMessage(String message) async {
-    // Simulasi respons bot P3K
-    return 'Bantuan medis sedang dipandu. Tetap tenang dan ikuti langkah darurat di atas.';
+    
+    return 'Bantuan medis sedang dipandu. Tetap tenang...';
   }
 }

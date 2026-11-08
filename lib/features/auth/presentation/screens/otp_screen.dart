@@ -380,16 +380,6 @@ class _OtpScreenState extends State<OtpScreen> {
     );
   }
 
-  Widget _buildStepBar(bool filled) {
-    return Container(
-      width: 32,
-      height: 4,
-      decoration: BoxDecoration(
-        color: filled ? AppColors.redPrimary : const Color(0xFFE2E8F0),
-        borderRadius: BorderRadius.circular(2),
-      ),
-    );
-  }
 
   Widget _buildOtpBox(int index) {
     final isActive = index == 3;

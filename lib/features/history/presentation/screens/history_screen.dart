@@ -71,8 +71,11 @@ class _HistoryScreenState extends State<HistoryScreen> with SingleTickerProvider
               onTap: (i) {
                 if (i == 0) {
                   context.go('/home');
+                // ignore: curly_braces_in_flow_control_structures
                 } else if (i == 1) context.push('/first-aid');
+                // ignore: curly_braces_in_flow_control_structures
                 else if (i == 2) context.push('/camera');
+                // ignore: curly_braces_in_flow_control_structures
                 else if (i == 3) context.push('/community');
               },
               variant: SigapNavVariant.home,

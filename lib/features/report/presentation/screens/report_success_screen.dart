@@ -120,9 +120,11 @@ class ReportSuccessScreen extends StatelessWidget {
         onTap: (i) {
           if (i == 0) {
             context.go('/home');
+          // ignore: curly_braces_in_flow_control_structures
           } else if (i == 1) context.push('/first-aid');
+          // ignore: curly_braces_in_flow_control_structures
           else if (i == 3) context.push('/community');
-          else if (i == 4) context.push('/history');
+          
         },
         variant: SigapNavVariant.home,
       ),
@@ -156,9 +158,6 @@ class _ConfettiPainter extends CustomPainter {
     const r = 70.0;
 
     for (int i = 0; i < 12; i++) {
-      final angle = (i * 30.0) * 3.14159 / 180;
-      final x = center.dx + r * (i % 3 == 0 ? 1 : 0.8) * (angle.isNaN ? 1 : (1 + 0.2 * (i % 2)));
-      final y = center.dy + r * (i % 3 == 0 ? 1 : 0.8) * (angle.isNaN ? 1 : (1 + 0.2 * (i % 2)));
       final ox = center.dx + (r + 20) * (i % 2 == 0 ? 1 : -1) * (0.5 + (i % 3) * 0.3);
       final oy = center.dy + (r + 20) * (0.5 + (i % 4) * 0.2) * (i < 6 ? -1 : 1);
       canvas.drawCircle(

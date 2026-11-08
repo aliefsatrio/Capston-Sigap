@@ -1,3 +1,5 @@
+// ignore_for_file: curly_braces_in_flow_control_structures
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -28,6 +30,7 @@ class FirstAidScreen extends StatelessWidget {
                   ),
                   const Spacer(),
                   Stack(children: [
+                    //bentuk kartu 
                     Container(
                       width: 36, height: 36,
                       decoration: BoxDecoration(color: AppColors.bgGrey, borderRadius: BorderRadius.circular(10)),
@@ -97,29 +100,7 @@ class FirstAidScreen extends StatelessWidget {
 
                     const SizedBox(height: 10),
 
-                    // Ambulance status
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFD1FAE5),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(Icons.local_hospital, color: Color(0xFF059669), size: 18),
-                          const SizedBox(width: 8),
-                          const Expanded(
-                            child: Text('Ambulans PMI Tegal terkoordinasi',
-                                style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 12, fontWeight: FontWeight.w600, color: Color(0xFF059669))),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                            decoration: BoxDecoration(color: const Color(0xFF059669), borderRadius: BorderRadius.circular(100)),
-                            child: const Text('~6 Menit', style: TextStyle(fontFamily: 'PlusJakartaSans', fontSize: 11, fontWeight: FontWeight.w700, color: Colors.white)),
-                          ),
-                        ],
-                      ),
-                    ),
+
 
                     const SizedBox(height: 14),
 
@@ -186,6 +167,7 @@ class FirstAidScreen extends StatelessWidget {
                 if (i == 0) {
                   context.go('/home');
                 } else if (i == 2) context.push('/camera');
+                
                 else if (i == 3) context.push('/community');
                 else if (i == 4) context.push('/history');
               },

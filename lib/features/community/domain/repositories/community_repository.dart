@@ -11,6 +11,7 @@ class CommunityPost {
   final int comments;
   final bool isSuspectedHoax;
 
+// model nyimpan data post di feed komunitas
   const CommunityPost({
     required this.id,
     required this.authorName,
@@ -26,15 +27,16 @@ class CommunityPost {
   });
 }
 
+
 abstract class CommunityRepository {
   Future<List<CommunityPost>> getFeedPosts();
   Future<List<Map<String, dynamic>>> getMapIncidents();
 }
-
+// Implementasi repository dengan data simulasi
 class MockCommunityRepository implements CommunityRepository {
   @override
   Future<List<CommunityPost>> getFeedPosts() async {
-    // Sesuai data Figma persis
+    
     return const [
       CommunityPost(
         id: 'post-1',
@@ -63,7 +65,7 @@ class MockCommunityRepository implements CommunityRepository {
       ),
     ];
   }
-
+  
   @override
   Future<List<Map<String, dynamic>>> getMapIncidents() async {
     return const [

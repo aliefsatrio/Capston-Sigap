@@ -2,12 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/widgets/sigap_bottom_nav.dart';
+import 'dart:typed_data';
+
 
 class DescriptionScreen extends StatefulWidget {
-  const DescriptionScreen({super.key});
+  final Uint8List? photoBytes;
+
+  const DescriptionScreen({
+    super.key,
+    this.photoBytes,
+  });
 
   @override
-  State<DescriptionScreen> createState() => _DescriptionScreenState();
+  State<DescriptionScreen> createState() =>
+      _DescriptionScreenState();
 }
 
 class _DescriptionScreenState extends State<DescriptionScreen> {
@@ -25,7 +33,6 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final charCount = _controller.text.length;
 
     return Scaffold(
       backgroundColor: AppColors.bgLavender,
@@ -63,32 +70,59 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Photo preview
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(14),
-                      child: Stack(
-                        children: [
-                          Container(
-                            height: 180,
-                            color: const Color(0xFF607D8B),
-                            child: const SizedBox.expand(
-                              child: Center(
-                                child: Icon(Icons.image, size: 56, color: Colors.white54),
-                              ),
-                            ),
-                          ),
-                          // Delete button
-                          Positioned(
-                            top: 10, right: 10,
-                            child: Container(
-                              width: 32, height: 32,
-                              decoration: BoxDecoration(color: Colors.black.withValues(alpha: 0.5), shape: BoxShape.circle),
-                              child: const Icon(Icons.close, color: Colors.white, size: 18),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                   // Photo preview
+ClipRRect(
+  borderRadius: BorderRadius.circular(14),
+  child: Stack(
+    children: [
+      SizedBox(
+        height: 180,
+        width: double.infinity,
+        child: widget.photoBytes != null
+            ? Image.memory(
+                widget.photoBytes!,
+                fit: BoxFit.cover,
+              )
+            : Container(
+                color: const Color(0xFF607D8B),
+                child: const Center(
+                  child: Icon(
+                    Icons.image,
+                    size: 56,
+                    color: Colors.white54,
+                  ),
+                ),
+              ),
+      ),
+
+      // Delete button
+      Positioned(
+        top: 10,
+        right: 10,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              // Nanti kita tambahkan fitur hapus foto.
+            });
+          },
+          child: Container(
+            width: 32,
+            height: 32,
+            decoration: BoxDecoration(
+              color: Colors.black.withValues(alpha: 0.5),
+              shape: BoxShape.circle,
+            ),
+            child: const Icon(
+              Icons.close,
+              color: Colors.white,
+              size: 18,
+            ),
+          ),
+        ),
+      ),
+    ],
+  ),
+),
 
                     const SizedBox(height: 14),
 
@@ -206,8 +240,11 @@ class _DescriptionScreenState extends State<DescriptionScreen> {
         onTap: (i) {
           if (i == 0) {
             context.go('/home');
+          // ignore: curly_braces_in_flow_control_structures
           } else if (i == 1) context.push('/first-aid');
+          // ignore: curly_braces_in_flow_control_structures
           else if (i == 3) context.push('/community');
+          // ignore: curly_braces_in_flow_control_structures
           else if (i == 4) context.push('/history');
         },
         variant: SigapNavVariant.home,
