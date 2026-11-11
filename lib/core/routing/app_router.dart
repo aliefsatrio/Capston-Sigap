@@ -50,14 +50,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 ),
       GoRoute(path: '/tentang-sigap',builder: (context, state) => const AboutSigapScreen(),
 ),
-      GoRoute(path: '/description',builder: (context, state) {
-          final photoBytes = state.extra as Uint8List?;
+      GoRoute(
+        path: '/description',
+        builder: (context, state) {
+          final extra = state.extra as Map<String, dynamic>?;
 
           return DescriptionScreen(
-            photoBytes: photoBytes,
-          );
-        },
-      ),
+            photoBytes: extra?['photoBytes'] as Uint8List?,
+            latitude: extra?['latitude'] as double?,
+            longitude: extra?['longitude'] as double?,
+            accuracy: extra?['accuracy'] as double?,
+    );
+  },
+),
 
       GoRoute(path: '/report-success', builder: (ctx, state) => const ReportSuccessScreen()),
       GoRoute(path: '/community', builder: (ctx, state) => const CommunityScreen()),
