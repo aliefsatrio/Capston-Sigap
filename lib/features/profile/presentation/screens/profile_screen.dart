@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/theme/app_colors.dart';
 
+
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
@@ -93,23 +95,24 @@ class ProfileScreen extends StatelessWidget {
                     _buildMenuItem(
                       icon: Icons.edit_outlined,
                       label: 'Edit Profil',
-                      onTap: () {},
+                      onTap: () {
+                        context.push('/edit-profile');
+                      },
                     ),
                     _buildDivider(),
                     _buildMenuItem(
                       icon: Icons.group_outlined,
                       label: 'Kontak Darurat',
-                      onTap: () {},
+                      onTap: () {
+                        context.push('/emergency-contacts');
+                      },
                     ),
                     _buildDivider(),
                     _buildMenuItem(
                       icon: Icons.settings_outlined,
                       label: 'Pengaturan',
                       onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) => _buildPlaceholderSheet('Pengaturan', 'Halaman Pengaturan belum memiliki desain referensi.'),
-                        );
+                        context.push('/settings');
                       },
                     ),
                     _buildDivider(),
@@ -117,10 +120,7 @@ class ProfileScreen extends StatelessWidget {
                       icon: Icons.error_outline,
                       label: 'Bantuan',
                       onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) => _buildPlaceholderSheet('Bantuan', 'Halaman Bantuan belum memiliki desain referensi.'),
-                        );
+                        context.push('/bantuan');
                       },
                     ),
                     _buildDivider(),
@@ -128,15 +128,14 @@ class ProfileScreen extends StatelessWidget {
                       icon: Icons.info_outline,
                       label: 'Tentang SIGAP',
                       onTap: () {
-                        showModalBottomSheet(
-                          context: context,
-                          builder: (_) => _buildPlaceholderSheet('Tentang SIGAP', 'SIGAP v1.0.0\nSistem Informasi Pelaporan Kejadian Darurat'),
-                        );
+                        context.push('/tentang-sigap');
                       },
                     ),
-                  ],
+                    ],  
+                    ),
+                  
                 ),
-              ),
+              
 
               const Spacer(),
 
@@ -230,6 +229,8 @@ class ProfileScreen extends StatelessWidget {
         color: const Color(0xFFF1F5F9),
       );
 
+  
+  // ignore: unused_element
   Widget _buildPlaceholderSheet(String title, String desc) {
     return Padding(
       padding: const EdgeInsets.all(24),
