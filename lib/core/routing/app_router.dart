@@ -17,7 +17,6 @@ import '../../features/community/presentation/screens/community_screen.dart';
 import '../../features/history/presentation/screens/history_screen.dart';
 import '../../features/profile/presentation/screens/profile_screen.dart';
 import '../../features/first_aid/presentation/screens/first_aid_screen.dart';
-import '../../features/gallery/presentation/screens/gallery_screen.dart';
 import '../../features/profile/presentation/screens/edit_profile_screen.dart';
 import '../../features/profile/presentation/screens/emergency_contacts_screen.dart';
 import '../../features/profile/presentation/screens/settings_screen.dart';
@@ -29,7 +28,6 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/onboarding',
     routes: [
-      GoRoute(path: '/gallery', builder: (ctx, state) => const GalleryScreen()),
       GoRoute(path: '/onboarding', builder: (ctx, state) => const OnboardingScreen()),
       GoRoute(path: '/register', builder: (ctx, state) => const RegisterScreen()),
       GoRoute(path: '/login', builder: (ctx, state) => const LoginScreen()),
